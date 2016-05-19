@@ -1,0 +1,261 @@
+html>body {
+    font-family: 'Roboto', sans-serif !important;
+    background-color: #FAFAFA;
+}
+
+.base {
+	height: 100%;
+}
+
+.base .wrap {
+	min-height: 100%;
+    position: relative;
+}
+
+.base .mdl-mini-footer {
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.base .container {
+	padding-bottom: 170px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.main-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+	padding-right: 0;
+}
+
+.mdl-layout__tab-bar-container a:hover,
+.mdl-layout__tab-bar-container a:focus {
+	color: white;
+}
+
+a:hover, a:focus {
+	text-decoration: none;
+}
+
+.mdl-layout__tab {
+	cursor: pointer;
+}
+
+.section__hero {
+	position: relative;
+	background: #404040 url("../img/background-blur1.jpg") no-repeat;
+	background-size: cover;
+	background-position: center 80%;
+	color: white;
+}
+
+.hero__btn {
+    display: none
+}
+
+@media only screen and (min-width: 48rem) {
+    .hero__btn {
+        display:inline-block
+    }
+}
+
+.hero__btn {
+    color: #fff;
+    font-weight: 400
+}
+
+.hero__btn:hover,.hero__btn:active,.hero__btn:focus {
+    color: #ccc;
+    background: transparent;
+    text-decoration: none
+}
+
+.hero__btn {
+    padding: 23px 23px 25px;
+    padding: 1.4375rem 1.4375rem 1.5625rem
+}
+
+.hero__btn {
+    line-height: 5px;
+    line-height: 0.3125rem;
+}
+
+.hero__fab {
+    /*height: 56px;
+    height: 3.5rem;
+    width: 56px;
+    width: 3.5rem;*/
+    margin-left: -28px;
+    margin-left: -1.75rem;
+    margin-bottom: -28px;
+    margin-bottom: -1.75rem;
+    background: #fff;
+    bottom: 0;
+    color: #448aff;
+    display: none;
+    left: 50%;
+    position: absolute
+}
+
+@media only screen and (min-width: 64rem) {
+    .hero__fab {
+        display:block
+    }
+}
+
+.hero__fab .material-icons {
+    margin-top: 2px;
+    margin-top: 0.125rem
+}
+
+.hero__fab:hover {
+    background: #fff
+}
+
+.site-header__main nav a {
+	color: rgba(255,255,255,.6);
+}
+
+.site-header__main nav a:hover {
+	color: #fff;
+}
+
+.card-square.mdl-card {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-square > .mdl-card__title {
+  color: #fff;
+}
+
+.card-square .mdl-textfield__label,
+.card-square .mdl-checkbox__label {
+	margin-bottom: 0px;
+    font-weight: normal;
+}
+
+.login.card-square.mdl-card {
+	width: 380px;
+	height: 380px;
+}
+
+.signup.card-square.mdl-card {
+	width: 380px;
+	height: 560px;
+}
+
+a {
+    color: #448aff;
+    font-weight: inherit;
+    text-decoration: none
+}
+
+.mdl-card__actions a {
+    font-size: 14px;
+    font-size: 1rem;
+}
+
+.mdl-layout-title {
+	color: #fff;
+}
+
+.mdl-layout-title:hover, .mdl-layout-title:focus {
+	color: #fff;
+}
+
+.mdl-card__supporting-text {
+	width: 100%;
+}
+
+.submit-button {
+	width: 100%;
+}
+
+.mdl-textfield .help-block-error {
+	position: absolute;
+	color: #b00;
+	font-size: 13px;
+    font-size: 0.93rem;
+}
+
+.login.card-square .mdl-checkbox,
+.signup.card-square .mdl-checkbox {
+	margin-top: 20px;
+}
+
+.login .mdl-textfield,
+.signup .mdl-textfield {
+	width: 350px;
+}
