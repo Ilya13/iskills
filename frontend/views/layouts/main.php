@@ -37,7 +37,12 @@ AppAsset::register($this);
 	  </main>
 	</div>
 </div>
-
+<dialog id="info_dialog" class="confirm-dialog mdl-dialog">
+	<div class="mdl-dialog__content"><p></p></div>
+	<div class="mdl-dialog__actions">
+		<button id="dialog_ok" type="button" class="mdl-button">Ok</button>
+	</div>
+</dialog>
 <?php $this->endBody() ?>
 </body>
 </html>

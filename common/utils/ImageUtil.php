@@ -24,7 +24,8 @@ class ImageUtil {
 	public static function getImages($dir){
 		$dir = Yii::getAlias('@web').'/img'.$dir;
 		$path = Yii::getAlias('@root').$dir;
-		$files = scandir(Yii::getAlias('@root').$dir);
+		if (is_dir($path) === false) return null;
+		$files = scandir($path);
 		if (count($files) < 2) return null;
 		
 		$result = array();
@@ -82,13 +83,23 @@ class ImageUtil {
 			mkdir($path.$baseLink);
 		}
 		
-		foreach ($files as $file) {
-			$link = str_replace(Url::base().'/img', '', $file);
-			if (is_file($path.$link)){
-				$arr = split('/', $file);
-				$name = $arr[sizeof($arr)-1];
-				copy($path.$link, $path.$baseLink.'/'.$name);
-				unlink($path.$link);
+		if ($files === null || count($files) == 0){
+			$files = glob($path.$baseLink.'/*');
+			foreach($files as $file){
+				if(is_file($file))
+					unlink($file);
+			}
+			rmdir($path.$baseLink);
+		} else {
+			foreach ($files as $file) {
+				if (strpos($file, 'order') !== false) continue;
+				$link = str_replace(Url::base().'/img', '', $file);
+				if (is_file($path.$link)){
+					$arr = split('/', $file);
+					$name = $arr[sizeof($arr)-1];
+					copy($path.$link, $path.$baseLink.'/'.$name);
+					unlink($path.$link);
+				}
 			}
 		}
 	}

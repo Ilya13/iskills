@@ -34,11 +34,20 @@ class FileForm extends Model
 		\Yii::info('projectId='.$this->projectId);
 		if ($this->orderId !== null) {
 			if ($this->projectId !== null) {
-				array_push($links, ImageUtil::getAvatar('/project/'.$this->projectId));
+				$projectImages = ImageUtil::getAvatar('/project/'.$this->projectId);
+				if ($projectImages !== null) {
+					array_push($links, $projectImages);
+				}
 			}
-			$links = array_merge($links, ImageUtil::getImages('/order/'.$this->orderId));
+			$orderImages = ImageUtil::getImages('/order/'.$this->orderId);
+			if ($orderImages !== null) {
+				$links = array_merge($links, $orderImages);
+			}
 		} else if ($this->projectId !== null) {
-			$links = array_merge($links, ImageUtil::getImages('/project/'.$this->projectId));
+			$projectImages = ImageUtil::getAvatar('/project/'.$this->projectId);
+			if ($projectImages !== null) {
+				$links = array_merge($links, $projectImages);
+			}
 		}
 		return $links;
 	}

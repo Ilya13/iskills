@@ -12,6 +12,11 @@ use common\utils\ImageUtil;
 class OrderForm extends Model {
 	
     public $project;
+	public $name;
+	public $size;
+	public $materials;
+	public $rangeMin;
+	public $rangeMax;
 	public $imageFiles;
 	public $details;
     
@@ -23,6 +28,12 @@ class OrderForm extends Model {
         return [
         	['imageFiles', 'each', 'rule' => ['string']],
             ['details', 'string', 'length' => [0, 2000]],
+            ['name', 'string', 'length' => [0, 255]],
+            ['size', 'string', 'length' => [0, 250]],
+            ['materials', 'string', 'length' => [0, 250]],
+            ['rangeMin', 'number'],
+            ['rangeMax', 'number'],
+            ['details', 'string', 'length' => [0, 250]],
         ];
     }
 
@@ -42,6 +53,26 @@ class OrderForm extends Model {
             }
         }
 		return null;
+    }
+    
+    public function edit($id) {
+    	if ($this->validate()) {
+    		$order = Order::findIdentity($id);
+    		if ($order->userId == Yii::$app->user->getId()){
+    			$order->name = $this->name;
+    			$order->size = $this->size;
+    			$order->materials = $this->materials;
+    			$order->rangeMin = $this->rangeMin;
+    			$order->rangeMax = $this->rangeMax;
+    			$order->details = $this->details;
+    			
+    			if ($order->save()){
+    				ImageUtil::saveOrderFiles($order->id, $this->imageFiles);
+    				return $order;
+    			}
+    		}
+    	}
+    	return null;
     }
     
     public function attributeLabels()

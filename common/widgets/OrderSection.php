@@ -11,10 +11,14 @@ class OrderSection extends \yii\base\Widget {
 	
 	public function init(){
 		parent::init();
-		if ($this->order->projectId != null){
-			$img = ImageUtil::getAvatar('/project/'.$this->order->projectId);
-		} else {
-			$img = ImageUtil::getAvatar('/order/'.$this->order->id);
+		
+		$img = ImageUtil::getAvatar('/order/'.$this->order->id);
+		if ($img === null){
+			if ($this->order->projectId !== null){
+				$img = ImageUtil::getAvatar('/project/'.$this->order->projectId);
+			} else {
+				// TODO добавить стандартные иконки категорий
+			}
 		}
 		
 		$this->html = '<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">'

@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use common\models\Order;
 use common\models\User;
 use yii\web\Response;
+use frontend\models\OrderForm;
 
 /**
  * User controller
@@ -93,7 +94,29 @@ class OrderController extends Controller
     				$status == Order::STATUS_ACTIVE ||
     				$status == Order::STATUS_FINISHED) {
     			$order->status = $status;
+    			if ($status == Order::STATUS_CLOSED){
+    				$order->closeDate = date("Y-m-d H:i:s");
+    			}
     			$order->save();
+    			$order->afterFind();
+    			return $order;
+    		}
+    	}
+        return null;
+    }
+    
+    public function actionEdit($id) {
+    	Yii::$app->response->format = Response::FORMAT_JSON;
+    	 
+    	if (Yii::$app->user->isGuest) {
+    		return null;
+    	}
+    	$request = Yii::$app->request;
+    	
+    	$model = new OrderForm();
+    	if ($model->load($request->post())) {
+    		$order = $model->edit($id);
+    		if ($order){
     			return $order;
     		}
     	}

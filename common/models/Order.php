@@ -15,6 +15,32 @@ class Order extends \yii\db\ActiveRecord {
 		];
 	}
 	
+	public function afterFind() {
+		if ($this->createDate != null){
+			$this->createDate = strtotime ($this->createDate);
+			$this->createDate = date ('d.m.Y', $this->createDate);
+		}
+		if ($this->closeDate != null){
+			$this->closeDate = strtotime ($this->closeDate);
+			$this->closeDate = date ('d.m.Y', $this->closeDate);
+		}
+	
+		parent::afterFind();
+	}
+	
+	public function beforeValidate() {
+		if ($this->createDate != null){
+			$this->createDate = strtotime($this->createDate);
+			$this->createDate = date('Y-m-d', $this->createDate);
+		}
+		if ($this->closeDate != null){
+			$this->closeDate = strtotime($this->closeDate);
+			$this->closeDate = date('Y-m-d', $this->closeDate);
+		}
+		
+		return parent::beforeValidate();
+	}
+	
 	public static function findIdentity($id) {
 		return static::findOne(['id' => $id]);
 	}
