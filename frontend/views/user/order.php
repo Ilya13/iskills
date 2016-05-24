@@ -196,6 +196,8 @@ $this->registerJs(
 		.'})'
   			.'.done(function(order) {'
 				.'if (order != ""){'
+					.'console.log(order["statusName"]);'
+					.'$("#order_status").text(order["statusName"]);'
 					.'drawHitory(order);'
 				.'}'
   			.'});'
@@ -353,19 +355,29 @@ function drawCloseCard($order) {
 ?>
 <div class="order-view mdl-grid">
 	<div class="mdl-cell mdl-cell--3-col">
-		<nav class="sidebar-nav">
-			<ul>
-				<li class="is-active">
-					<?php echo Html::a('История', ['', 'id' => $order->id, '#' => 'history'])?>
-				</li>
-				<li class="">
-					<?php echo Html::a('Сообщения', ['', 'id' => $order->id, '#' => 'messages'])?>
-				</li>
-				<li class="">
-					<?php echo Html::a('Предложения', ['', 'id' => $order->id, '#' => 'proposals'])?>
-				</li>
-			</ul>
-		</nav>
+		<div class="sidebar">
+			<header>
+				<div class="inner">
+					<h1><?php echo $order->name?></h1>
+					<div id="master_name" class="master"><span>От:</span> <?php echo $master->lastName.' '.$master->firstName?></div>
+					<div id="order_id" class="order">Заказ #<?php echo $order->id?></div>
+					<div id="order_status" class="status"><?php echo $order->statusName?></div>
+				</div>
+			</header>
+			<nav>
+				<ul>
+					<li class="is-active">
+						<?php echo Html::a('История', ['', 'id' => $order->id, '#' => 'history'])?>
+					</li>
+					<li class="">
+						<?php echo Html::a('Сообщения', ['', 'id' => $order->id, '#' => 'messages'])?>
+					</li>
+					<li class="">
+						<?php echo Html::a('Предложения', ['', 'id' => $order->id, '#' => 'proposals'])?>
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 	<div id="tab-content" class="mdl-cell mdl-cell--9-col"></div>
 </div>

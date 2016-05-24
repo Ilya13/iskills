@@ -679,13 +679,13 @@ a#hero_image_link .fader {
 	width: 406px;
 }
 
-.sidebar-nav {
+.sidebar {
     margin-bottom: 20px;
     margin-bottom: 1.25rem
 }
 
 @media only screen and (min-width: 64rem) {
-    .sidebar-nav {
+    .sidebar {
         width:312px;
         width: 19.5rem;
         margin-bottom: 0;
@@ -693,13 +693,13 @@ a#hero_image_link .fader {
     }
 }
 
-.sidebar-nav ul {
+.sidebar ul {
     list-style: none;
     margin: 0;
     padding: 0
 }
 
-.sidebar-nav a {
+.sidebar a {
     font-size: 18px;
     font-size: 1.125rem;
     line-height: 24px;
@@ -713,19 +713,19 @@ a#hero_image_link .fader {
 }
 
 @media only screen and (min-width: 64rem) {
-    .sidebar-nav li.is-active a {
+    .sidebar li.is-active a {
         border-left-color:#448aff;
         color: #424242
     }
 }
 
-.sidebar-nav {
+.sidebar {
     margin-bottom: 20px;
     margin-bottom: 1.25rem
 }
 
 @media only screen and (min-width: 64rem) {
-    .sidebar-nav {
+    .sidebar {
         width:312px;
         width: 19.5rem;
         margin-bottom: 0;
@@ -733,13 +733,13 @@ a#hero_image_link .fader {
     }
 }
 
-.sidebar-nav ul {
+.sidebar ul {
     list-style: none;
     margin: 0;
     padding: 0
 }
 
-.sidebar-nav a {
+.sidebar a {
     font-size: 18px;
     font-size: 1.125rem;
     line-height: 24px;
@@ -753,14 +753,46 @@ a#hero_image_link .fader {
 }
 
 @media only screen and (min-width: 64rem) {
-    .sidebar-nav li.is-active a {
+    .sidebar li.is-active a {
         border-left-color:#448aff;
         color: #424242
     }
+}
+
+.sidebar header .inner {
+    padding: 0 0 20px 0;
+}
+
+.sidebar header h1 {
+    color: #404040;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 30px 10px 0 0;
+    margin: 0;
+    word-break: break-word;
+}
+
+.sidebar .master {
+    color: #636363;
+    font-size: 14px;
+    display: block;
+    padding: 5px 0 10px;
+}
+
+.sidebar .order {
+    color: #cbcbcb;
+    padding: 3px 0;
+    font-size: 14px;
+}
+
+.sidebar .status {
+    color: #404040;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
 }
 
 .order-view {
-	min-height: 142px;
+	min-height: 197px;
 }
 
 .order-view .mdl-card {

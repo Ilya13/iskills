@@ -8,6 +8,8 @@ class Order extends \yii\db\ActiveRecord {
 	const STATUS_ACTIVE = 10;
 	const STATUS_FINISHED = 20;
 	
+	public $statusName;
+	
 	public function rules(){
 		return [
 				['status', 'default', 'value' => self::STATUS_ACTIVE],
@@ -24,7 +26,15 @@ class Order extends \yii\db\ActiveRecord {
 			$this->closeDate = strtotime ($this->closeDate);
 			$this->closeDate = date ('d.m.Y', $this->closeDate);
 		}
-	
+		
+		if ($this->status == static::STATUS_ACTIVE){
+			$this->statusName = 'Активен';
+		} else if ($this->status == static::STATUS_CLOSED){
+			$this->statusName = 'Закрыт';
+		} else if ($this->status == static::STATUS_FINISHED){
+			$this->statusName = 'Завершен';
+		}
+		
 		parent::afterFind();
 	}
 	
@@ -66,6 +76,6 @@ class Order extends \yii\db\ActiveRecord {
     }
     
     public function toJson(){
-    	return json_encode($this->getAttributes(array('id','projectId','name','size','materials','details','status','createDate','closeDate','rangeMin','rangeMax')));
+    	return json_encode($this->getAttributes(array('id','projectId','name','size','materials','details','status','statusName','createDate','closeDate','rangeMin','rangeMax')));
     }
 }
