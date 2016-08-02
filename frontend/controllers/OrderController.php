@@ -7,6 +7,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\Order;
 use common\models\User;
+use common\models\Message;
 use yii\web\Response;
 use frontend\models\OrderForm;
 
@@ -121,5 +122,27 @@ class OrderController extends Controller
     		}
     	}
         return null;
+    }
+    
+    public function actionMessages($id) {
+    	Yii::$app->response->format = Response::FORMAT_JSON;
+    	 
+    	if (Yii::$app->user->isGuest) {
+    		return null;
+    	}
+    	$request = Yii::$app->request;
+    	$id = $request->get('id');
+    	
+		$result = (object) array('correspondence' => null, 'messages' => null);
+    	$messages = Message::getLast($id);
+    	if($messages !== null){
+    		if (sizeof($messages) == 1){
+    			$result->correspondence = getCorrespondence($messages[0]->orderId, $messages[0]->masterId);
+    		} else {
+    			$result->messages = $messages;
+    		}
+    		return $result;
+    	}
+    	return null;
     }
 }

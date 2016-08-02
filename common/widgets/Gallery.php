@@ -16,7 +16,7 @@ class Gallery extends \yii\base\Widget {
 		$this->html = '<div id="slideshow_listing_wrap">'
 				.'<div id="slideshow_listing">';
 		
-		$avatar = ImageUtil::getAvatar('/project/'.$this->project->id);
+		$avatar = ImageUtil::getProjectAvatar($this->project->id);
 		$this->html .= '<a href="#" id="hero_image_link" class="hero_image">'
 							.Html::img($avatar, ['id' => 'hero_image_element'])
 						.'</a>';

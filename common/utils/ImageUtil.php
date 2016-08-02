@@ -7,8 +7,30 @@ use yii\helpers\Url;
 
 class ImageUtil {
 		
+	public static function getUserAvatar($dir) {
+		return static::getAvatarOrDefault('user', $dir, 'account.png');
+	}
+	
+	public static function getOrderAvatar($dir) {
+		//TODO Добавить иконку по умолчанию
+		return static::getAvatarOrDefault('order', $dir, 'order.png');
+	}
+	
+	public static function getProjectAvatar($dir) {
+		//TODO Добавить иконку по умолчанию
+		return static::getAvatarOrDefault('project', $dir, 'project.png');
+	}
+	
+	public static function getAvatarOrDefault($path, $dir, $default) {
+		$avatar = static::getAvatar('/'.$path.'/'.$dir);
+		if ($avatar === null && $default !== null) return Yii::getAlias('@web').'/img/'.$path.'/'.$default;
+		return $avatar;
+	}
+	
 	public static function getAvatar($dir) {
 		$dir = Yii::getAlias('@web').'/img'.$dir;
+		if (is_dir(Yii::getAlias('@root').$dir) === false) return null;
+		
 		$files = scandir(Yii::getAlias('@root').$dir);
 		if (count($files) < 2) return null;
 		
@@ -17,7 +39,6 @@ class ImageUtil {
 				return $dir.'/'.$file;
 			}
 		}
-		
 		return $dir.'/'.$files[2];
 	}
 	
