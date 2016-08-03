@@ -689,7 +689,7 @@ a#hero_image_link .fader {
         width:312px;
         width: 19.5rem;
         margin-bottom: 0;
-        position: fixed
+        /*position: fixed*/
     }
 }
 
@@ -729,7 +729,7 @@ a#hero_image_link .fader {
         width:312px;
         width: 19.5rem;
         margin-bottom: 0;
-        position: fixed
+        /*position: fixed*/
     }
 }
 
@@ -792,7 +792,7 @@ a#hero_image_link .fader {
 }
 
 .order-view {
-	min-height: 289px;
+	min-height: 319px;
 }
 
 .order-view .mdl-card {
@@ -998,4 +998,10 @@ span.mdl-textfield__title {
 
 .order-view .mdl-textfield__title {
 	line-height: 27px;
+}
+
+.mdl-list__item .mdl-list__item-primary-content .mdl-list__item-avatar {
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
