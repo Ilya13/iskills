@@ -1000,8 +1000,61 @@ span.mdl-textfield__title {
 	line-height: 27px;
 }
 
-.mdl-list__item .mdl-list__item-primary-content .mdl-list__item-avatar {
+.messages.mdl-list {
+	background-color: white;
+	padding: 0px;
+}
+
+.messages.mdl-list .mdl-list__item {
+	position: relative;
+	padding: 0px;
+	cursor: pointer;
+}
+
+.messages.mdl-list .mdl-list__item:hover {
+	background: #f5f7fa;
+	border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.messages.mdl-list .mdl-list__item:hover+.mdl-list__item {
+	border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.messages.mdl-list .mdl-list__item .mdl-list__item-avatar {
+	float: left;
+	margin-top: -1px;
+	margin-left: 16px;
+	margin-right: 16px;
+	padding-top: 16px;
 	background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content {
+	height: 72px;
+	padding: 16px 0px;
+	margin-top: -1px;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.mdl-list .mdl-list__item:not(:first-child) .mdl-list__item-primary-content {
+	border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-sub-title {
+	max-width: 90%;
+    width: 90%;
+}
+
+.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-secondary-info {
+	font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    color: rgba(0,0,0,.54);
+	position: absolute;
+	right: 15px;
+    top: 20px;
 }
