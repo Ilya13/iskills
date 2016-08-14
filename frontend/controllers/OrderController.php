@@ -124,7 +124,7 @@ class OrderController extends Controller
         return null;
     }
     
-    public function actionMessages($id) {
+    public function actionMessages() {
     	Yii::$app->response->format = Response::FORMAT_JSON;
     	 
     	if (Yii::$app->user->isGuest) {
@@ -132,17 +132,18 @@ class OrderController extends Controller
     	}
     	$request = Yii::$app->request;
     	$id = $request->get('id');
+    	$userId = $request->get('userId');
+    	$masterId = $request->get('masterId');
     	
-		$result = (object) array('correspondence' => null, 'messages' => null);
-    	$messages = Message::getLast($id);
-    	if($messages !== null){
-    		if (sizeof($messages) == 1){
-    			$result->correspondence = getCorrespondence($messages[0]->orderId, $messages[0]->masterId);
-    		} else {
-    			$result->messages = $messages;
-    		}
-    		return $result;
-    	}
-    	return null;
+		$result = (object) array('correspondence' => null, 'messages' => null, 'interlocutor' => null);
+		if ($userId != null || $masterId != null){
+			$interlocutorId = $userId!=null?$userId:$masterId;
+			$result->correspondence = Message::getCorrespondence($id, $interlocutorId);
+			$interlocutor = User::findIdentity($interlocutorId);
+			$result->interlocutor = (object) array('firstName' => $interlocutor->firstName, 'lastName' => $interlocutor->lastName);
+		} else {
+			$result->messages = Message::getLast($id);
+		}
+    	return $result;
     }
 }

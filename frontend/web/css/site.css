@@ -1058,3 +1058,12 @@ span.mdl-textfield__title {
 	right: 15px;
     top: 20px;
 }
+
+.correspondence {
+	background-color: white;
+	height: 100%;
+}
+
+.correspondence .mdl-card__title span {
+	line-height: 32px;
+}

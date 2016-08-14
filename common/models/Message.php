@@ -9,8 +9,7 @@ use common\models\User;
 class Message extends \yii\db\ActiveRecord {
 	
 	public $avatar;
-	public $firstName;
-	public $lastName;
+	public $interlocutor;
 	public $dateStr;
 	
 	public function getInterlocutor() {
@@ -28,7 +27,7 @@ class Message extends \yii\db\ActiveRecord {
 	
     public static function getLast($orderId) {
 		$userId = Yii::$app->user->identity->master ? 'userId' : 'masterId';
-    	$sql = 'select t1.*, t3.firstName, t3.lastName '
+    	$sql = 'select t1.*, concat(t3.firstName, " ", t3.lastName) as interlocutor '
     			.'from '.static::tableName().' t1, '
     		 	      .'(select orderId, max(date) date '
     			 	  	 .'from '.static::tableName().' '
@@ -40,8 +39,11 @@ class Message extends \yii\db\ActiveRecord {
         return static::findBySql($sql, [':orderId' => $orderId])->all();
     }
 	
-    public static function getCorrespondence($orderId, $masterId) {
-        return static::find()->where(['orderId' => $orderId, 'masterId' => $masterId])->orderBy('date')->all();
+    public static function getCorrespondence($orderId, $interlocutor) {
+        return static::find()->where([
+        		'orderId' => $orderId, 
+        		Yii::$app->user->identity->master?'userId':'masterId' => $interlocutor
+        ])->orderBy('date')->all();
     }
     
     public static function tableName() {
@@ -66,14 +68,13 @@ class Message extends \yii\db\ActiveRecord {
     public function fields() {
     	$fields = parent::fields();
     	$fields['avatar'] = 'avatar';
-    	$fields['firstName'] = 'firstName';
-    	$fields['lastName'] = 'lastName';
+    	$fields['interlocutor'] = 'interlocutor';
     	$fields['dateStr'] = 'dateStr';
     
     	return $fields;
     }
     
     public function toJson(){
-    	return json_encode($this->getAttributes(array('id','userId','masterId','orderId','text','date','author','firstName','lastName','avatar','dateStr')));
+    	return json_encode($this->getAttributes(array('id','userId','masterId','orderId','text','date','author','interlocutor','avatar','dateStr')));
     }
 }
