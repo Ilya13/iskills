@@ -124,6 +124,18 @@ class OrderController extends Controller
         return null;
     }
     
+    public function actionDialogs() {
+    	Yii::$app->response->format = Response::FORMAT_JSON;
+    	 
+    	if (Yii::$app->user->isGuest) {
+    		return null;
+    	}
+    	$request = Yii::$app->request;
+    	$id = $request->get('id');
+    	
+		return Message::getLast($id);
+    }
+    
     public function actionMessages() {
     	Yii::$app->response->format = Response::FORMAT_JSON;
     	 
@@ -135,14 +147,12 @@ class OrderController extends Controller
     	$userId = $request->get('userId');
     	$masterId = $request->get('masterId');
     	
-		$result = (object) array('correspondence' => null, 'messages' => null, 'interlocutor' => null);
+		$result = (object) array('messages' => null, 'interlocutor' => null);
 		if ($userId != null || $masterId != null){
 			$interlocutorId = $userId!=null?$userId:$masterId;
-			$result->correspondence = Message::getCorrespondence($id, $interlocutorId);
+			$result->messages = Message::getDialog($id, $interlocutorId);
 			$interlocutor = User::findIdentity($interlocutorId);
 			$result->interlocutor = (object) array('firstName' => $interlocutor->firstName, 'lastName' => $interlocutor->lastName);
-		} else {
-			$result->messages = Message::getLast($id);
 		}
     	return $result;
     }

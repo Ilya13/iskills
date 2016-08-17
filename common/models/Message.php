@@ -39,7 +39,7 @@ class Message extends \yii\db\ActiveRecord {
         return static::findBySql($sql, [':orderId' => $orderId])->all();
     }
 	
-    public static function getCorrespondence($orderId, $interlocutor) {
+    public static function getDialog($orderId, $interlocutor) {
         return static::find()->where([
         		'orderId' => $orderId, 
         		Yii::$app->user->identity->master?'userId':'masterId' => $interlocutor
@@ -52,7 +52,7 @@ class Message extends \yii\db\ActiveRecord {
     
     public function afterFind() {
     	parent::afterFind();
-    	$this->avatar = ImageUtil::getUserAvatar(Yii::$app->user->identity->master ? $this->userId : $this->masterId);
+    	$this->avatar = ImageUtil::getUserAvatar($this->author);
     	$dateTime = strtotime($this->date);
     	$now = time();
     	Yii::info('date1: '.($now-(60*60*24)).', date2:'.$dateTime);

@@ -1000,26 +1000,32 @@ span.mdl-textfield__title {
 	line-height: 27px;
 }
 
+.dialogs.mdl-list,
 .messages.mdl-list {
 	background-color: white;
 	padding: 0px;
 }
 
+.dialogs.mdl-list .mdl-list__item,
 .messages.mdl-list .mdl-list__item {
 	position: relative;
 	padding: 0px;
+}
+
+.dialogs.mdl-list .mdl-list__item {
 	cursor: pointer;
 }
 
-.messages.mdl-list .mdl-list__item:hover {
+.dialogs.mdl-list .mdl-list__item:hover {
 	background: #f5f7fa;
 	border-top: 1px solid rgba(0,0,0,.1);
 }
 
-.messages.mdl-list .mdl-list__item:hover+.mdl-list__item {
+.dialogs.mdl-list .mdl-list__item:hover+.mdl-list__item {
 	border-top: 1px solid rgba(0,0,0,.1);
 }
 
+.dialogs.mdl-list .mdl-list__item .mdl-list__item-avatar,
 .messages.mdl-list .mdl-list__item .mdl-list__item-avatar {
 	float: left;
 	margin-top: -1px;
@@ -1031,7 +1037,7 @@ span.mdl-textfield__title {
     background-size: cover;
 }
 
-.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content {
+.dialogs.mdl-list .mdl-list__item .mdl-list__item-primary-content {
 	height: 72px;
 	padding: 16px 0px;
 	margin-top: -1px;
@@ -1039,31 +1045,117 @@ span.mdl-textfield__title {
 	position: relative;
 }
 
-.mdl-list .mdl-list__item:not(:first-child) .mdl-list__item-primary-content {
+.dialogs.mdl-list .mdl-list__item:not(:first-child) .mdl-list__item-primary-content {
 	border-top: 1px solid rgba(0,0,0,.1);
 }
 
-.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-sub-title {
+.dialogs.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-sub-title {
 	max-width: 90%;
     width: 90%;
 }
 
+.dialogs.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-secondary-info,
 .messages.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-secondary-info {
 	font-size: 12px;
     font-weight: 400;
     line-height: 1;
     letter-spacing: 0;
     color: rgba(0,0,0,.54);
+}
+
+.dialogs.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-secondary-info {
 	position: absolute;
 	right: 15px;
     top: 20px;
 }
 
-.correspondence {
-	background-color: white;
-	height: 100%;
+.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content {
+	padding: 16px 0px;
+	padding-left: 72px;
 }
 
-.correspondence .mdl-card__title span {
-	line-height: 32px;
+.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-secondary-info {
+	margin-left: 4px;
+}
+	
+.messages {
+	background-color: white;
+	height: 100%;
+	width: 100%;
+}
+
+.messages .message-title {
+	height: 45px;
+	width: 100%;
+	position: absolute;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.messages .message-body {
+	margin-top: 45px;
+	margin-bottom: 134px;
+	height: 100%;
+	position: relative;
+}
+
+.messages .message-form {
+	height: 134px;
+	position: absolute;
+    bottom: 0px;
+}
+
+.order-view .mdl-card.messages .mdl-card__title {
+	padding: 0px;
+}
+
+.messages .mdl-card__title .mdl-button {
+	color: rgba(0,0,0,.54);
+	height: 45px;
+	line-height: 45px;
+}
+
+.messages .message-form textarea {
+	resize: none;
+}
+
+.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-sub-title {
+	color: black;
+	white-space: pre;
+}
+
+.messages.mdl-list .mdl-list__item .mdl-list__item-primary-content span {
+	font-weight: bold;
+}
+
+.dialogs.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-sub-title{
+	white-space: pre;
+}
+
+.mdl-list__item--many-line .mdl-list__item-primary-content {
+    line-height: 20px;
+    display: block
+}
+
+.mdl-list__item--many-line .mdl-list__item-avatar {
+	position: absolute;
+    top: 16px;
+}
+
+.mdl-list__item--many-line .mdl-list__item-primary-content .mdl-list__item-avatar {
+    float: left;
+}
+
+.mdl-list__item--many-line .mdl-list__item-primary-content .mdl-list__item-icon {
+    float: left;
+    margin-top: 6px
+}
+
+.mdl-list__item--many-line .mdl-list__item-primary-content .mdl-list__item-sub-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+    color: rgba(0,0,0,.54);
+    display: block;
+    padding: 0
 }
