@@ -20,15 +20,22 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="base">
+
+<body class=<?php echo isset($this->params['mainClass'])?$this->params['mainClass']:"base"?>>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-	<?php echo SimpleHeader::widget(); ?>
-	<div class="container">
-		<?= $content ?>
+	<div class="main-layout-waterfall mdl-layout mdl-js-layout">
+		<?php echo SimpleHeader::widget(); ?>
+		<div class="mdl-layout__content mdl-color--grey-100">
+			<div class="page-content">
+				<div class="container">
+					<?= $content ?>
+				</div>
+			</div>
+			<?php echo Footer::widget(); ?>
+		</div>
 	</div>
-	<?php echo Footer::widget(); ?>
 </div>
 
 <?php $this->endBody() ?>

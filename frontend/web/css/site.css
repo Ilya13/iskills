@@ -4,21 +4,22 @@ html>body {
 }
 
 .base {
-	height: 100%;
+	min-height: 100%;
 }
 
 .base .wrap {
 	min-height: 100%;
-    position: relative;
+    /*position: relative;*/
 }
 
 .base .mdl-mini-footer {
-	position: absolute;
-    bottom: 0;
+	/*position: absolute;
+    bottom: 0;*/
     width: 100%;
 }
 
-.wrap > .container {
+.base .wrap .container {
+	min-height: 100%;
     padding: 70px 15px 20px;
 }
 
@@ -1125,10 +1126,6 @@ span.mdl-textfield__title {
 
 .messages.mdl-list .mdl-list__item .mdl-list__item-primary-content span {
 	font-weight: bold;
-}
-
-.dialogs.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-sub-title{
-	white-space: pre;
 }
 
 .mdl-list__item--many-line .mdl-list__item-primary-content {

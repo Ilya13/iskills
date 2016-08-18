@@ -44,7 +44,7 @@ AppAsset::register($this);
 		    </div>
 		</div>
 		<?php echo Footer::widget(); ?>
-	  </main>
+	  </div>
 	</div>
 </div>
 

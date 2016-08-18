@@ -15,7 +15,6 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\web\UploadedFile;
 
 /**
  * Site controller

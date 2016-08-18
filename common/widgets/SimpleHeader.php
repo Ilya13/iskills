@@ -9,9 +9,9 @@ use yii\helpers\Url;
 
 class SimpleHeader extends \yii\base\Widget {
 	public $html;
-	public $search;
-	public $links;
-	public $tabs;
+	public $search = true;
+	public $links = true;
+	public $tabs = false;
 
 	public function init(){
 		parent::init();
@@ -34,7 +34,7 @@ class SimpleHeader extends \yii\base\Widget {
 						      .'</div>';
 		}
 		
-		if (isset($this->links)){
+		if (isset($this->links) && $this->links){
 			if (Yii::$app->user->isGuest) {
 				$this->html .= '<nav class="mdl-navigation">'
 								.'<a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="'.Url::to(['/site/login']).'">'
@@ -51,7 +51,7 @@ class SimpleHeader extends \yii\base\Widget {
 		}
 	    $this->html .= '</div>';
 	    
-	    if (isset($this->tabs)){
+	    if (isset($this->tabs) && $this->tabs){
 	    	$this->html .= '<div class="mdl-layout__header-row">'
 	    			.'<nav class="mdl-navigation">';
 	    	foreach (Category::getAll() as $tab){

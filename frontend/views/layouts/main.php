@@ -24,17 +24,16 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-		
 	<div class="main-layout-waterfall mdl-layout mdl-js-layout">
-	  <?php echo Header::widget(); ?>
-	  <div class="mdl-layout__content mdl-color--grey-100">
-	    <div class="page-content">
-			<div class="container">
-		        <?= $content ?>
-		    </div>
+		<?php echo Header::widget(); ?>
+		<div class="mdl-layout__content mdl-color--grey-100">
+			<div class="page-content">
+				<div class="container">
+					<?= $content ?>
+				</div>
+			</div>
+			<?php echo Footer::widget(); ?>
 		</div>
-		<?php echo Footer::widget(); ?>
-	  </main>
 	</div>
 </div>
 <dialog id="info_dialog" class="confirm-dialog mdl-dialog">
