@@ -7,10 +7,27 @@ html>body {
 	min-height: 100%;
 }
 
-.base .wrap {
+.base>.wrap {
 	min-height: 100%;
     /*position: relative;*/
 }
+
+.screen,
+.screen>.wrap,
+.screen>.wrap .mdl-layout__content,
+.screen>.wrap .mdl-layout__content>.page-content,
+.screen>.wrap .mdl-layout__content>.page-content>.container,
+.screen>.wrap .mdl-layout__content>.page-content>.container .order-view {
+	height: 100%;
+}
+
+/*.screen>.wrap .mdl-layout__content>.page-content {
+	position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}*/
 
 .base .mdl-mini-footer {
 	/*position: absolute;
@@ -1096,7 +1113,8 @@ span.mdl-textfield__title {
 	margin-top: 45px;
 	margin-bottom: 134px;
 	height: 100%;
-	position: relative;
+	position: absolute;
+	overflow-y: auto;
 }
 
 .messages .message-form {
@@ -1117,6 +1135,12 @@ span.mdl-textfield__title {
 
 .messages .message-form textarea {
 	resize: none;
+}
+
+.messages .message-body{
+	position: static;
+	top: 0px;
+	bottom: 0px;
 }
 
 .messages.mdl-list .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-sub-title {
@@ -1155,4 +1179,22 @@ span.mdl-textfield__title {
     color: rgba(0,0,0,.54);
     display: block;
     padding: 0
+}
+
+.message-date {
+    color: #828282;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 400;
+    position: relative;
+    margin: 10px 43px;
+    border: none;
+	padding: 0;
+}
+
+.message-date>span {
+	line-height: 1.5;
+    padding: 3px 15px;
+    position: relative;
+    top: 7px;
 }

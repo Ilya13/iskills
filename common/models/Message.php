@@ -11,6 +11,7 @@ class Message extends \yii\db\ActiveRecord {
 	public $avatar;
 	public $interlocutor;
 	public $dateStr;
+	public $timeStr;
 	
 	public function getInterlocutor() {
 		$id = Yii::$app->user->identity->master ? 'userId' : 'masterId';
@@ -54,15 +55,16 @@ class Message extends \yii\db\ActiveRecord {
     	parent::afterFind();
     	$this->avatar = ImageUtil::getUserAvatar($this->author);
     	$dateTime = strtotime($this->date);
-    	$now = time();
-    	Yii::info('date1: '.($now-(60*60*24)).', date2:'.$dateTime);
-    	if (($now-(60*60*24)) < $dateTime){
-    		$this->dateStr = date('H:i', $dateTime);
-    	} else if (($now-(60*60*24*2)) < $dateTime){
+    	$now = strtotime('today midnight');
+    	Yii::info('date1: '.$now.', date2:'.$dateTime);
+    	if ($now <= $dateTime) {
+    		$this->dateStr = 'сегодня';
+    	} else if (($now-(60*60*24)) <= $dateTime){
     		$this->dateStr = 'вчера';
     	} else {
     		$this->dateStr = date('d.m.Y', $dateTime);
     	}
+    	$this->timeStr = date('H:i', $dateTime);
     }
     
     public function fields() {
@@ -70,11 +72,12 @@ class Message extends \yii\db\ActiveRecord {
     	$fields['avatar'] = 'avatar';
     	$fields['interlocutor'] = 'interlocutor';
     	$fields['dateStr'] = 'dateStr';
+    	$fields['timeStr'] = 'timeStr';
     
     	return $fields;
     }
     
     public function toJson(){
-    	return json_encode($this->getAttributes(array('id','userId','masterId','orderId','text','date','author','interlocutor','avatar','dateStr')));
+    	return json_encode($this->getAttributes(array('id','userId','masterId','orderId','text','date','author','interlocutor','avatar','dateStr','timeStr')));
     }
 }
