@@ -76,7 +76,6 @@ $this->registerJs(
 		.'});'
 	.'});'
 	.'var activateLink = function(num){'
-		.'console.log("activateLink");'
 		.'links.each(function(index){'
 			.'if (num == index){'
 				.'$(this).addClass("is-active");'
@@ -230,7 +229,6 @@ $this->registerJs(
 		.'})'
   			.'.done(function(order) {'
 				.'if (order != ""){'
-					.'console.log(order["statusName"]);'
 					.'$("#order_status").text(order["statusName"]);'
 					.'drawHitory(order);'
 				.'}'
@@ -419,14 +417,14 @@ $this->registerJs(
 		.'});'
 		.'html += "</ul></div>";'
 		.'html += "<div class=\"message-form mdl-card__actions mdl-card--border\">'
-					.'<form id=\"\" action=\"#\" method=\"post\">'
+					.'<form id=\"messageform\" action=\"'.Url::toRoute(['order/message', 'id' => $order->id]).'\" method=\"post\">'
 						.'<div class=\"mdl-grid mdl-card__subtitle-text\">'
 							.'<div class=\"mdl-cell mdl-cell--10-col mdl-textfield mdl-js-textfield\">'
 								.'<textarea rows=\"2\" class=\"mdl-textfield__input\" type=\"text\" maxlength=\"250\" name=\"MessageForm[message]\" id=\"messageform-message\"></textarea>'
 								.'<label class=\"mdl-textfield__label\" for=\"messageform-message\">Введите сообщение...</label>'
 							.'</div>'
 							.'<div class=\"mdl-cell mdl-cell--2-col mdl-textfield__title\">'
-								.'<button class=\"mdl-button mdl-js-button mdl-button--raised mdl-button--colored\">'
+								.'<button id=\"action_send\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-button--colored\">'
 									.'Отправить'
 								.'</button>'
 							.'</div>'
@@ -436,6 +434,26 @@ $this->registerJs(
 		.'html += "</div>";'
 		.'content.append(html);'
 		.'componentHandler.upgradeElements($(".mdl-textfield").get());'
+		.'$(".message-body").scrollTop($(".message-body")[0].scrollHeight);'
+		.'var form = $("#messageform");'
+		.'$("#action_send").click(function(){'
+			.'var message = form.find("#messageform-message").val();'
+			.'if (message != null && message.trim() != ""){'
+				.'$.ajax({'
+					.'type: form.attr("method"),'
+					.'url: form.attr("action"),'
+					.'data: form.serialize()'
+				.'}).success(function(response) {'
+					.'console.log("message sended");'
+					.'if (response != null && response != ""){'
+						
+					.'}'
+				.'}).error(function(){'
+					.'console.log("message error");'
+			    .'});'
+			.'}'
+			.'return false;'
+		.'});'
 	.'};'
 	.'var drawMessage = function(message, interlocutor){'
 		.'var name;'
@@ -456,20 +474,6 @@ $this->registerJs(
   				.'</div>";'
 	.'};'
 	.'$(window).trigger("hashchange");', View::POS_READY);
-
-function drawCloseCard($order) {
-	if ($order->closeDate === null) return;
-	return '<div class=\"close-card mdl-card mdl-shadow--2dp\">'
-			.'<div class=\"mdl-card__title\">'
-    			.'<h2 class=\"mdl-card__title-text\">Заказ закрыт</h2>'
-				.'<time class=\"mdl-color-text--grey-600\">'.date('d.m.Y', strtotime($order->closeDate)).'</time>'
-  			.'</div>'
-			.'<div class=\"mdl-card__supporting-text\">'
-			    .'Если вы хотите открыть заказ, сделайте это ниже.'
-			.'</div>'
-		.'</div>';
-}
-
 ?>
 <div class="order-view mdl-grid">
 	<div class="mdl-cell mdl-cell--3-col">

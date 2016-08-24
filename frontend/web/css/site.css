@@ -813,7 +813,8 @@ a#hero_image_link .fader {
 	min-height: 319px;
 }
 
-.order-view .mdl-card {
+.order-view .history-card,
+.order-view .close-card {
 	margin-bottom: 30px;
 }
 

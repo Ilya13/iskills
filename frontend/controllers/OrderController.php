@@ -156,4 +156,19 @@ class OrderController extends Controller
 		}
     	return $result;
     }
+    
+    public function actionMessage($id) {
+    	Yii::$app->response->format = Response::FORMAT_JSON;
+    	 
+    	if (Yii::$app->user->isGuest) {
+    		return null;
+    	}
+    	$request = Yii::$app->request;
+    	/*$message = $request->get('MessageForm[message]');
+    	
+    	if ($message != null) {
+    		return $message;
+    	}*/
+        return null;
+    }
 }

@@ -26,7 +26,7 @@ AppAsset::register($this);
 
 <div class="wrap">
 	<div class="main-layout-waterfall mdl-layout mdl-js-layout">
-		<!-- ?php echo SimpleHeader::widget(); ? -->
+		<?php echo SimpleHeader::widget(); ?>
 		<div class="mdl-layout__content mdl-color--grey-100">
 			<div class="page-content">
 				<div class="container">
