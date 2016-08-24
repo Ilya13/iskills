@@ -152,7 +152,7 @@ class OrderController extends Controller
 			$interlocutorId = $userId!=null?$userId:$masterId;
 			$result->messages = Message::getDialog($id, $interlocutorId);
 			$interlocutor = User::findIdentity($interlocutorId);
-			$result->interlocutor = (object) array('firstName' => $interlocutor->firstName, 'lastName' => $interlocutor->lastName);
+			$result->interlocutor = (object) array('id' => $interlocutor->id, 'firstName' => $interlocutor->firstName, 'lastName' => $interlocutor->lastName);
 		}
     	return $result;
     }
@@ -164,11 +164,29 @@ class OrderController extends Controller
     		return null;
     	}
     	$request = Yii::$app->request;
-    	/*$message = $request->get('MessageForm[message]');
+    	$text = $request->post('MessageForm')['message'];
+    	$interlocutor = $request->post('MessageForm')['interlocutor'];
     	
-    	if ($message != null) {
-    		return $message;
-    	}*/
+    	if ($text != null && trim($text) != '') {
+    		$order = Order::findIdentity($id);
+    		if ($order != null) {
+    			$message = new Message();
+    			if (Yii::$app->user->identity->master) {
+    				$message->userId = $interlocutor;
+    				$message->masterId = $message->author = Yii::$app->user->getId();
+    			} else {
+    				$message->userId = $message->author = Yii::$app->user->getId();
+    				$message->masterId = $interlocutor;
+    			}
+    			$message->orderId = $id;
+    			$message->text = $text;
+    			$message->date = date("Y-m-d H:i:s");
+    			
+    			$message->save();
+    			$message->afterFind();
+    			return $message;
+    		}
+    	}
         return null;
     }
 }
