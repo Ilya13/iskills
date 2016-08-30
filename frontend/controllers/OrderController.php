@@ -132,8 +132,9 @@ class OrderController extends Controller
     	}
     	$request = Yii::$app->request;
     	$id = $request->get('id');
+    	$last = $request->get('last');
     	
-		return Message::getLast($id);
+		return Message::getLast($id, $last);
     }
     
     public function actionMessages() {
@@ -146,11 +147,12 @@ class OrderController extends Controller
     	$id = $request->get('id');
     	$userId = $request->get('userId');
     	$masterId = $request->get('masterId');
+    	$last = $request->get('last');
     	
 		$result = (object) array('messages' => null, 'interlocutor' => null);
 		if ($userId != null || $masterId != null){
 			$interlocutorId = $userId!=null?$userId:$masterId;
-			$result->messages = Message::getDialog($id, $interlocutorId);
+			$result->messages = Message::getDialog($id, $interlocutorId, $last);
 			$interlocutor = User::findIdentity($interlocutorId);
 			$result->interlocutor = (object) array('id' => $interlocutor->id, 'firstName' => $interlocutor->firstName, 'lastName' => $interlocutor->lastName);
 		}

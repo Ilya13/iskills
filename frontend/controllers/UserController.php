@@ -96,7 +96,10 @@ class UserController extends Controller
 
         $order = Order::findIdentity($id);
         if (Yii::$app->user->getId() === $order->userId){
-        	$master = User::findIdentity($order->masterId);
+        	$master = null;
+        	if ($order->masterId != null) {
+        		$master = User::findIdentity($order->masterId);
+        	}
         	$this->layout = 'base';
         	$this->view->params['mainClass'] = 'screen';
         	return $this->render('order', ['order' => $order, 'master' => $master]);

@@ -9,14 +9,10 @@ use common\models\User;
 class Message extends \yii\db\ActiveRecord {
 	
 	public $avatar;
+	public $interlocutorId;
 	public $interlocutor;
 	public $dateStr;
 	public $timeStr;
-	
-	public function getInterlocutor() {
-		$id = Yii::$app->user->identity->master ? 'userId' : 'masterId';
-		return $this->hasOne(User::className(), ['id' => $id]);
-	}
 	
 	public static function findIdentity($id) {
 		return static::findOne(['id' => $id]);
@@ -26,9 +22,9 @@ class Message extends \yii\db\ActiveRecord {
         return static::find()->where(['orderId' => $orderId])->orderBy('date')->all();
     }
 	
-    public static function getLast($orderId) {
+    public static function getLast($orderId, $last) {
 		$userId = Yii::$app->user->identity->master ? 'userId' : 'masterId';
-    	$sql = 'select t1.*, concat(t3.firstName, " ", t3.lastName) as interlocutor '
+    	$sql = 'select t1.*, t3.id interlocutorId, concat(t3.firstName, " ", t3.lastName) as interlocutor '
     			.'from '.static::tableName().' t1, '
     		 	      .'(select orderId, max(date) date '
     			 	  	 .'from '.static::tableName().' '
@@ -36,15 +32,23 @@ class Message extends \yii\db\ActiveRecord {
     			 	  .User::tableName().' t3 '
 			   .'where t1.orderId = t2.orderId '
 			   	 .'and t1.date = t2.date '
-			   	 .'and t1.'.$userId.' = t3.id';
-        return static::findBySql($sql, [':orderId' => $orderId])->all();
+			   	 .'and t1.'.$userId.' = t3.id '
+			   	 .((isset($last)&&$last!=null)?'and t1.id > :last ':'')
+			   .'order by t1.date desc';
+    	$params = [':orderId' => $orderId];
+    	if (isset($last) && $last != null) {
+    		$params[':last'] = $last;
+    	}
+        return static::findBySql($sql, $params)->all();
     }
 	
-    public static function getDialog($orderId, $interlocutor) {
-        return static::find()->where([
-        		'orderId' => $orderId, 
-        		Yii::$app->user->identity->master?'userId':'masterId' => $interlocutor
-        ])->orderBy('date')->all();
+    public static function getDialog($orderId, $interlocutor, $last) {
+        $query = static::find()->where(['orderId' => $orderId, 
+        		Yii::$app->user->identity->master?'userId':'masterId' => $interlocutor]);
+        if (isset($last) && $last != null){
+        	$query = $query->andWhere(['>', 'id', $last]);
+        }
+    	return $query->orderBy('date')->all();
     }
     
     public static function tableName() {
@@ -53,7 +57,7 @@ class Message extends \yii\db\ActiveRecord {
     
     public function afterFind() {
     	parent::afterFind();
-    	$this->avatar = ImageUtil::getUserAvatar($this->author);
+    	$this->avatar = ImageUtil::getUserAvatar(Yii::$app->user->identity->master?$this->userId:$this->masterId);
     	$dateTime = strtotime($this->date);
     	$now = strtotime('today midnight');
     	Yii::info('date1: '.$now.', date2:'.$dateTime);
@@ -71,6 +75,7 @@ class Message extends \yii\db\ActiveRecord {
     	$fields = parent::fields();
     	$fields['avatar'] = 'avatar';
     	$fields['interlocutor'] = 'interlocutor';
+    	$fields['interlocutorId'] = 'interlocutorId';
     	$fields['dateStr'] = 'dateStr';
     	$fields['timeStr'] = 'timeStr';
     
@@ -78,6 +83,6 @@ class Message extends \yii\db\ActiveRecord {
     }
     
     public function toJson(){
-    	return json_encode($this->getAttributes(array('id','userId','masterId','orderId','text','date','author','interlocutor','avatar','dateStr','timeStr')));
+    	return json_encode($this->getAttributes(array('id','userId','masterId','orderId','text','date','author','interlocutor','interlocutorId','avatar','dateStr','timeStr')));
     }
 }
