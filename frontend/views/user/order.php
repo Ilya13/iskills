@@ -12,8 +12,17 @@ use common\widgets\FileAttachment;
 
 $this->title = $order->name;
 
+$this->registerCssFile('css/angular-material.min.css');
+$this->registerCssFile('css/md-data-table.css');
+$this->registerJsFile('js/angular.min.js');
+$this->registerJsFile('js/angular-animate.min.js');
+$this->registerJsFile('js/angular-aria.min.js');
+$this->registerJsFile('js/angular-material.min.js');
+$this->registerJsFile('js/md-data-table.js');
+
 $this->registerJs(
-	'var timerId;'
+	'angular.module("iskills", ["ngMaterial", "md.data.table"]);'
+	.'var timerId;'
 	.'$(window).bind("hashchange",  function(){'
 		.'if (timerId != null){'
 			.'clearInterval(timerId);'
@@ -72,7 +81,14 @@ $this->registerJs(
 	  			.'});'
 		.'} else if (location.hash == "#proposals"){'
 			.'activateLink(2);'
-			.''
+			.'$.ajax({'
+	  			.'method: "GET",'
+	  			.'url: "'.Url::toRoute(['order/proposals']).'",'
+	  			.'data: {"id": '.$order->id.'}'
+			.'})'
+	  			.'.done(function(proposals) {'
+					.'drawProposals(proposals);'
+	  			.'});'
 		.'}'
 	.'});'
 	.'var links = $("div.sidebar > nav > ul > li");'
@@ -564,6 +580,9 @@ $this->registerJs(
 					.'}'
 	  			.'});'
 		.'}'
+	.'};'
+	.'var drawProposals = function(proposals){'
+		.''
 	.'};'
 	.'$(window).trigger("hashchange");', View::POS_READY);
 ?>

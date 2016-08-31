@@ -191,4 +191,16 @@ class OrderController extends Controller
     	}
         return null;
     }
+    
+    public function actionProposals() {
+    	Yii::$app->response->format = Response::FORMAT_JSON;
+    	 
+    	if (Yii::$app->user->isGuest) {
+    		return null;
+    	}
+    	$request = Yii::$app->request;
+    	$id = $request->get('id');
+    	
+		return Message::getLast($id, $last);
+    }
 }
