@@ -1199,3 +1199,7 @@ span.mdl-textfield__title {
     position: relative;
     top: 7px;
 }
+
+.proposals-card {
+	width: 100%;
+}

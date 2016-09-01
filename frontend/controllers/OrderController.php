@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\Order;
+use common\models\Proposal;
 use common\models\User;
 use common\models\Message;
 use yii\web\Response;
@@ -201,6 +202,14 @@ class OrderController extends Controller
     	$request = Yii::$app->request;
     	$id = $request->get('id');
     	
-		return Message::getLast($id, $last);
+    	if ($id != null){
+    		$order = Order::findIdentity($id);
+    		if ($order->userId == Yii::$app->user->getId()){
+    			$proposal = Proposal::findByOrder($id);
+    			return $proposal;
+    		}
+    	}
+    	
+		return null;
     }
 }

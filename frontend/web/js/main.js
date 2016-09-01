@@ -44,3 +44,9 @@ var getParams = function (query) {
 	}
 	return queryString;
 }
+
+var dayesToString = function (dayes) {
+	if (dayes >= 365){
+		
+	}
+}
