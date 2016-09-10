@@ -124,6 +124,7 @@ a.desc:after {
 
 a:hover, a:focus {
 	text-decoration: none;
+	color: inherit;
 }
 
 .mdl-layout__tab {
@@ -858,12 +859,6 @@ a.avatar {
     cursor: pointer;
 }
 
-.history-card .avatar {
-	height: 52px;
-	width: 52px;
-	float: left;
-}
-
 .star_rating_small, .star_rating_medium, .star_rating_large, .star_value {
 	position: relative;
 	margin: 0;
@@ -1005,6 +1000,9 @@ a.avatar {
 
 .master-content .avatar {
 	margin-right: 10px;
+	height: 52px;
+	width: 52px;
+	float: left;
 }
 
 .mdl-textfield__title {
@@ -1200,6 +1198,49 @@ span.mdl-textfield__title {
     top: 7px;
 }
 
-.proposals-card {
+.proposals-card, .proposal-card {
 	width: 100%;
+}
+
+.proposals-card .md-table .md-body .md-row .md-cell .mdl-list__item-avatar {
+	float: left;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+	margin-right: 8px;
+	height: 20px;
+    width: 20px;
+}
+
+table.md-table.md-row-click tbody.md-body > tr.md-row {
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
+    background-color: #eeeeee !important;
+}
+
+.mdl-card__header.mdl-color--primary {
+	color: rgb(255, 255, 255);
+}
+
+.mdl-card__header {
+    position: relative;
+    height: 40px;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 4px;
+}
+
+.mdl-card__header-button {
+	position: absolute;
+}
+
+.mdl-card__header-text {
+	position: absolute;
+    top: 0px;
+    left: 0px;
+	width: 100%;
+	line-height: 40px;
+    text-align: center;
 }

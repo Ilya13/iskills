@@ -46,7 +46,35 @@ var getParams = function (query) {
 }
 
 var dayesToString = function (dayes) {
+	var result = "";
 	if (dayes >= 365){
-		
+		var balance = dayes%365;
+		var years = (dayes-balance)/365;
+		result += years + " " + declOfNum(years, ['год', 'года', 'лет']);
+		if (balance > 0){
+			result += " " + dayesToString(balance);
+		}
+	} else if (dayes >= 31) {
+		var balance = dayes%31;
+		var months = (dayes-balance)/31;
+		result += months + " " + declOfNum(months, ['месяц', 'месяца', 'месяцев']);
+		if (balance > 0){
+			result += " " + dayesToString(balance);
+		}
+	} else if (dayes >= 7) {
+		var balance = dayes%7;
+		var weeks = (dayes-balance)/7;
+		result += weeks + " " + declOfNum(weeks, ['неделя', 'недели', 'недель']);
+		if (balance > 0){
+			result += " " + dayesToString(balance);
+		}
+	} else {
+		result += dayes + " " + declOfNum(dayes, ['день', 'дня', 'дней']);
 	}
+	return result;
+}
+
+var declOfNum = function(number, titles) {  
+    var cases = [2, 0, 1, 1, 1, 2];  
+    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
 }

@@ -212,4 +212,25 @@ class OrderController extends Controller
     	
 		return null;
     }
+    
+    public function actionProposal() {
+    	Yii::$app->response->format = Response::FORMAT_JSON;
+    	 
+    	if (Yii::$app->user->isGuest) {
+    		return null;
+    	}
+    	$request = Yii::$app->request;
+    	$id = $request->get('id');
+    	$masterId = $request->get('masterId');
+    	
+    	if ($id != null){
+    		$order = Order::findIdentity($id);
+    		if ($order->userId == Yii::$app->user->getId()){
+    			$proposal = Proposal::findByOrderAndMaster($id, $masterId);
+    			return $proposal;
+    		}
+    	}
+    	
+		return null;
+    }
 }
