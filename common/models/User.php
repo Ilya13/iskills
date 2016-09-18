@@ -29,6 +29,8 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     private $place;
+    private $rating;
+    private $reviews;
     
     /**
      * @inheritdoc
@@ -102,6 +104,11 @@ class User extends ActiveRecord implements IdentityInterface
             'password_reset_token' => $token,
             'status' => self::STATUS_ACTIVE,
         ]);
+    }
+    
+    public static function findIdentityMaster($id)
+    {
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE, 'master' => 1]);
     }
 
     /**
@@ -200,6 +207,20 @@ class User extends ActiveRecord implements IdentityInterface
     }
     
     public function getPlace(){
+    	if ($this->place === null) {
+    		$this->place = Place::findIdentity($this->placeId);
+    	}
+    	return $this->place;
+    }
+    
+    public function getRating(){
+    	if ($this->place === null) {
+    		$this->place = Place::findIdentity($this->placeId);
+    	}
+    	return $this->place;
+    }
+    
+    public function getReviews(){
     	if ($this->place === null) {
     		$this->place = Place::findIdentity($this->placeId);
     	}

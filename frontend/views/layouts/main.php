@@ -9,8 +9,9 @@ use frontend\assets\AppAsset;
 use yii\helpers\Html;
 
 AppAsset::register($this);
+
+$this->beginPage()
 ?>
-<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -28,7 +29,7 @@ AppAsset::register($this);
 		<?php echo Header::widget(); ?>
 		<div class="mdl-layout__content mdl-color--grey-100">
 			<div class="page-content">
-				<div class="container">
+				<div class="<?php echo isset($this->params['containerClass'])?$this->params['containerClass']:'container'?>">
 					<?= $content ?>
 				</div>
 			</div>

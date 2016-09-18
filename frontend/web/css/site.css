@@ -1244,3 +1244,13 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 	line-height: 40px;
     text-align: center;
 }
+
+.master-info-section {
+	width: auto;
+}
+
+.master-info-section .avatar {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+}

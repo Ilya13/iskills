@@ -21,7 +21,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 
-<body class=<?php echo isset($this->params['mainClass'])?$this->params['mainClass']:"base"?>>
+<body class=<?php echo isset($this->params['mainClass'])?$this->params['mainClass']:'base'?>>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
