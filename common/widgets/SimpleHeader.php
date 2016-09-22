@@ -8,14 +8,18 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 class SimpleHeader extends \yii\base\Widget {
+	const TYPE_WATERFALL = 'waterfall';
+	const TYPE_SCROLL = 'scroll';
+	
 	public $html;
 	public $search = true;
 	public $links = true;
 	public $tabs = false;
+	public $type = self::TYPE_WATERFALL;
 
 	public function init(){
 		parent::init();
-		$this->html = '<div class="mdl-layout__header mdl-layout__header--waterfall site-header__main">'
+		$this->html = '<div class="mdl-layout__header'.(isset($this->type)?' mdl-layout__header--'.$this->type:'').' site-header__main">'
 						    .'<div class="mdl-layout__header-row">'
 						      .'<a class="mdl-layout-title" href="'.Url::to(['/site/index']).'">Мастерская</a>'
 						      .'<div class="mdl-layout-spacer"></div>';

@@ -5,6 +5,7 @@
 
 use common\widgets\Footer;
 use common\widgets\Header;
+use common\widgets\SimpleHeader;
 use frontend\assets\AppAsset;
 use yii\helpers\Html;
 
@@ -26,7 +27,7 @@ $this->beginPage()
 
 <div class="wrap">
 	<div class="main-layout-waterfall mdl-layout mdl-js-layout">
-		<?php echo Header::widget(); ?>
+		<?php echo Header::widget(['type'=>(isset($this->params['headerType'])?$this->params['headerType']:SimpleHeader::TYPE_WATERFALL)]); ?>
 		<div class="mdl-layout__content mdl-color--grey-100">
 			<div class="page-content">
 				<div class="<?php echo isset($this->params['containerClass'])?$this->params['containerClass']:'container'?>">

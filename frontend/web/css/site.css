@@ -1252,5 +1252,22 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 .master-info-section .avatar {
 	width: 80px;
 	height: 80px;
-	margin: 0 auto;
+	margin: 50px auto 10px auto;
 }
+
+.master-info-section .mdl-typography--title {
+	text-align: center;
+	font-size: 18px;
+}
+
+.master-info-section .mdl-typography--title.mdl-typography--font-thin {
+	font-size: 15px;
+	margin-top: 2px;
+}
+
+.master-info-section .star_rating_small {
+	display: block;
+	margin: 2px auto 50px auto;
+}
+
+.master-view {min-height:900px;}
