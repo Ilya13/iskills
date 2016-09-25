@@ -2,12 +2,21 @@
 
 /* @var $this yii\web\View */
 
+use yii\web\View;
 use common\models\Project;
 use common\widgets\ProjectCard;
 use common\widgets\Pagination;
 use yii\base\Widget;
 
 $this->title = $category->name;
+
+$this->registerJs(
+		'$("#hero__fab").click(function (){'
+			.'$(".mdl-layout__content").animate({'
+				.'scrollTop: $(".jumbotron").outerHeight()'
+			.'}, 300);'
+		.'});'
+			.'console.log("click");', View::POS_READY);
 ?>
 <div class="site-index">
     <div class="body-content">

@@ -1,11 +1,3 @@
-$(function () {
-	$("#hero__fab").click(function (){
-		$(".mdl-layout__content").animate({
-			scrollTop: $(".jumbotron").outerHeight()
-		}, 300);
-	});
-});
-
 var showInfo = function(info, onClose){
 	var dialog = $("#info_dialog");
 	if (!dialog[0].showModal) {

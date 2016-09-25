@@ -1270,4 +1270,18 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 	margin: 2px auto 50px auto;
 }
 
-.master-view {min-height:900px;}
+.master-view .mdl-tabs.is-upgraded .mdl-tabs__panel {
+	display: block;
+}
+
+.mdl-tabs__tab-bar.fixed {
+    top: 0;
+	left: 0;
+	right: 17px;
+    position: fixed;
+    z-index: 100;
+}
+
+.tab-bar-container {
+	height: 48px;
+}
