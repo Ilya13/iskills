@@ -2,6 +2,9 @@
 
 use yii\web\View;
 use common\utils\ImageUtil;
+use common\models\Project;
+use common\widgets\ProjectCard;
+use common\widgets\Pagination;
 use common\widgets\StarsRating;
 use common\widgets\SimpleHeader;
 
@@ -10,7 +13,9 @@ $this->params['containerClass'] = '';
 $this->params['headerType'] = SimpleHeader::TYPE_SCROLL;
 
 $this->registerJs(
-		'var layout = $(".mdl-layout");'
+		'var animation = false;'
+		.'var activeTab = null;'
+		.'var layout = $(".mdl-layout");'
 		.'var tabBarTop = $(".mdl-tabs__tab-bar").position().top + $(".mdl-layout__header").outerHeight();'
 		.'layout.scroll(function() {'
 			.'if ($(".mdl-layout").scrollTop() >= tabBarTop){'
@@ -18,18 +23,37 @@ $this->registerJs(
 			.'} else {'
 				.'$(".mdl-tabs__tab-bar").removeClass("fixed");'
 			.'}'
-			.'console.log(getVisiblePanel());'
+			.'if (!animation) {'
+				.'var visiblePanel = getVisiblePanel();'
+				.'if (visiblePanel == null) {'
+					.'if (activeTab != null) {'
+						.'activeTab.removeClass("is-active");'
+						.'activeTab = null;'
+					.'}'
+				.'} else {'
+					.'if (activeTab == null) {'
+						.'activeTab = $("a[href=\"#"+visiblePanel+"\"]");'
+						.'activeTab.addClass("is-active");'
+					.'}'
+					.'if (activeTab.attr("href") != "#"+visiblePanel) {'
+						.'activeTab.removeClass("is-active");'
+						.'activeTab = $("a[href=\"#"+visiblePanel+"\"]");'
+						.'activeTab.addClass("is-active");'
+					.'}'
+				.'}'
+			.'}'
 		.'});'
 		.'var header = $(".mdl-layout__header");'
 		.'var tabBar = $(".mdl-tabs__tab-bar");'
 		.'var tabs = $(".mdl-tabs__tab");'
 		.'tabs.click(function() {'
-			.'var tab = $(this);'
-			.'var panel = $(tab.attr("href"));'
+			.'activeTab = $(this);'
+			.'var panel = $(activeTab.attr("href"));'
 			.'if (panel != null){'
+				.'animation = true;'
 	  			.'layout.animate({'
 					.'scrollTop: panel.position().top + header.outerHeight() - tabBar.outerHeight()'
-				.'}, 300);'
+				.'}, 300, function(){animation = false;});'
 			.'}'
 		.'});'
 		.'var panels = $(".mdl-tabs__panel");'
@@ -37,7 +61,9 @@ $this->registerJs(
 			.'var result = null;'
 			.'panels.each(function(index, value) {'
 				.'var panel = $(this);'
-				.'if (layout.scrollTop() + tabBar.outerHeight() < panel.position().top + panel.outerHeight() + header.outerHeight()){'
+				.'var scrollTop = layout.scrollTop() + tabBar.outerHeight();'
+				.'var panelTop = panel.position().top;'
+				.'if (scrollTop >= panelTop + header.outerHeight() && scrollTop <= panelTop + panel.outerHeight() + header.outerHeight()){'
 					.'result = panel.attr("id");'
 					.'return false;'
 				.'}'
@@ -69,16 +95,24 @@ $this->registerJs(
 		  </div>
 	  </div>
 	  <div class="mdl-tabs__panel mdl-color--white" id="listings-panel">
-	  	<div class="section-container">
-			<ul>
-		      <li>Eddard</li>
-		      <li>Catelyn</li>
-		      <li>Robb</li>
-		      <li>Sansa</li>
-		      <li>Brandon</li>
-		      <li>Arya</li>
-		      <li>Rickon</li>
-		    </ul>
+	  	<div class="section container">
+			<div class="mdl-grid projects-grid">
+				<?php
+				foreach ($progects as $project){
+					echo ProjectCard::widget(['project' => $project]);
+				}
+				?>
+			</div>
+			<?php
+			if ($count > Project::$PAGE_MIN_SIZE) {
+				echo '<div class="text-center"><nav><ul class="pagination">';
+			}
+			echo Pagination::widget([
+					'page' => $page,
+					'pageCount' => ceil($count / Project::$PAGE_MIN_SIZE),
+					'href' => ['master/index', 'id' => $master->id],
+			]);
+			?>
 		</div>
 	  </div>
 	  <div class="mdl-tabs__panel mdl-color--grey-100" id="about-panel">

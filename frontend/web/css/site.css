@@ -405,8 +405,8 @@ a {
 }
 
 .projects-grid .mdl-card__media {
-	width: 265px;
-	height: 265px;
+	width: 100%;
+	padding-top: 100%;
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -1284,4 +1284,9 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 
 .tab-bar-container {
 	height: 48px;
+}
+
+.section.container {
+	padding-top: 50px;
+	padding-bottom: 50px;
 }

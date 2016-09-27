@@ -5,6 +5,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\User;
+use common\models\Project;
 
 class MasterController extends Controller
 {
@@ -59,7 +60,13 @@ class MasterController extends Controller
 	public function actionIndex($id) {
 		$master = User::findIdentityMaster($id);
 		if ($master != null) {
-			return $this->render('index', ['master' => $master]);
+			$progects = Project::getByMaster($master->id);
+			return $this->render('index', [
+					'master' => $master, 
+					'progects' => $progects,
+					'count' => Project::countMasterProjects($master->id),
+        			'page' => null,
+			]);
 		}
         return $this->goHome();
 	}

@@ -228,7 +228,7 @@ class SiteController extends Controller
         $this->layout = 'subindex';
         return $this->render('category', [
         	'category' => $category,
-        	'count' => Project::countProjects($id),
+        	'count' => Project::countCategoryProjects($id),
         	'page' => $page,
         ]);
     }
