@@ -1252,7 +1252,7 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 .master-info-section .avatar {
 	width: 80px;
 	height: 80px;
-	margin: 50px auto 10px auto;
+	margin: 0 auto 10px auto;
 }
 
 .master-info-section .mdl-typography--title {
@@ -1260,14 +1260,16 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 	font-size: 18px;
 }
 
-.master-info-section .mdl-typography--title.mdl-typography--font-thin {
+.section.container .mdl-typography--title.mdl-typography--font-thin {
 	font-size: 15px;
 	margin-top: 2px;
+	margin-bottom: 0;
+	white-space: pre;
 }
 
 .master-info-section .star_rating_small {
 	display: block;
-	margin: 2px auto 50px auto;
+	margin: 2px auto 0 auto;
 }
 
 .master-view .mdl-tabs.is-upgraded .mdl-tabs__panel {
@@ -1293,4 +1295,5 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 
 .mdl-tabs__panel .section .mdl-typography--title {
 	padding-left: 16px;
+	margin-bottom: 20px;
 }

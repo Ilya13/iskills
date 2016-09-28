@@ -29,8 +29,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     private $place;
-    private $rating;
-    private $reviews;
+    private $info;
     
     /**
      * @inheritdoc
@@ -207,7 +206,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
     
     public function toJson(){
-    	return json_encode($this->getAttributes(array('id','firstName','lastName','email','master','shop','place')));
+    	return json_encode($this->getAttributes(array('id','firstName','lastName','email','master','place')));
     }
     
     public function getPlace(){
@@ -217,17 +216,10 @@ class User extends ActiveRecord implements IdentityInterface
     	return $this->place;
     }
     
-    public function getRating(){
-    	if ($this->place === null) {
-    		$this->place = Place::findIdentity($this->placeId);
+    public function getInfo(){
+    	if ($this->info === null) {
+    		$this->info = Master::findIdentity($this->id);
     	}
-    	return $this->place;
-    }
-    
-    public function getReviews(){
-    	if ($this->place === null) {
-    		$this->place = Place::findIdentity($this->placeId);
-    	}
-    	return $this->place;
+    	return $this->info;
     }
 }

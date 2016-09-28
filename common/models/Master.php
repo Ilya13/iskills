@@ -5,7 +5,7 @@ namespace common\models;
 class Master extends \yii\db\ActiveRecord {
 	
 	public static function findIdentity($id) {
-		return static::findOne(['userid' => $id]);
+		return static::findOne(['id' => $id]);
 	}
 	
     public static function tableName() {
@@ -13,6 +13,6 @@ class Master extends \yii\db\ActiveRecord {
     }
     
     public function toJson(){
-    	return json_encode($this->getAttributes(array('userid','about','shipping','rating')));
+    	return json_encode($this->getAttributes(array('id','about','shipping','rating')));
     }
 }
