@@ -1,10 +1,8 @@
 <?php
 
 use yii\web\View;
+use yii\widgets\Pjax;
 use common\utils\ImageUtil;
-use common\models\Project;
-use common\widgets\ProjectCard;
-use common\widgets\Pagination;
 use common\widgets\StarsRating;
 use common\widgets\SimpleHeader;
 
@@ -96,23 +94,14 @@ $this->registerJs(
 	  </div>
 	  <div class="mdl-tabs__panel mdl-color--white" id="listings-panel">
 	  	<div class="section container">
-			<div class="mdl-grid projects-grid">
-				<?php
-				foreach ($progects as $project){
-					echo ProjectCard::widget(['project' => $project]);
-				}
-				?>
-			</div>
-			<?php
-			if ($count > Project::$PAGE_MIN_SIZE) {
-				echo '<div class="text-center"><nav><ul class="pagination">';
-			}
-			echo Pagination::widget([
-					'page' => $page,
-					'pageCount' => ceil($count / Project::$PAGE_MIN_SIZE),
-					'href' => ['master/index', 'id' => $master->id],
-			]);
-			?>
+			<?php Pjax::begin(); ?>
+				<?=$this->render('_projects', [
+						'progects' => $progects,
+						'count' => $count,
+	        			'page' => $page,
+						'masteId' => $master->id,
+				])?> 
+			<?php Pjax::end(); ?>
 		</div>
 	  </div>
 	  <div class="mdl-tabs__panel mdl-color--grey-100" id="about-panel">

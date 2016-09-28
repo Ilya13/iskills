@@ -48,11 +48,12 @@ class Project extends \yii\db\ActiveRecord {
     	return $query->count();
     }
 	
-    public static function getByMaster($id, $page = 0) {
+    public static function getByMaster($id, $page = 1) {
+    	if ($page == null) $page = 1;
         $projects = static::find()
         	->where(['masterId' => $id])
         	->limit(static::$PAGE_MIN_SIZE)
-        	->offset($page*static::$PAGE_MIN_SIZE)
+        	->offset(($page-1)*static::$PAGE_MIN_SIZE)
         	->orderBy(['orderCount' => SORT_DESC])
         	->all();
         

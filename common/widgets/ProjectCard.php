@@ -18,7 +18,7 @@ class ProjectCard extends \yii\base\Widget {
 		              	.'<strong>'
 					    	.Html::a($this->project->name, ['site/project', 'id' => $this->project->id])
 		              	.'</strong>'
-		              	.($this->project->master!=null?Html::a($this->project->master->lastName.' '.$this->project->master->firstName, ['site/index']):'')
+		              	.($this->project->master!=null?Html::a($this->project->master->lastName.' '.$this->project->master->firstName, ['master/index', 'id' => $this->project->masterId]):'')
 		              	.($this->project->category!=null?Html::a($this->project->category->name, ['site/category', 'id' => $this->project->categoryId]):'')
 		                .'<span>'
 					      .'от '.$this->project->price.' руб.'

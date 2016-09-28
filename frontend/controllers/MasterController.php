@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use \Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -57,17 +58,40 @@ class MasterController extends Controller
 		];
 	}
 
-	public function actionIndex($id) {
-		$master = User::findIdentityMaster($id);
-		if ($master != null) {
-			$progects = Project::getByMaster($master->id);
-			return $this->render('index', [
-					'master' => $master, 
+	public function actionIndex($id, $page = null) {
+		if (Yii::$app->request->isPjax) {
+			Yii::info('isPjax=true');
+			$progects = Project::getByMaster($id, $page);
+			return $this->renderAjax('_projects', [
 					'progects' => $progects,
 					'count' => Project::countMasterProjects($master->id),
-        			'page' => null,
+					'page' => $page,
+					'masteId' => $id,
 			]);
+		} else {
+			Yii::info('isPjax=false');
+			$master = User::findIdentityMaster($id);
+			if ($master != null) {
+				$progects = Project::getByMaster($id, $page);
+				return $this->render('index', [
+						'master' => $master,
+						'progects' => $progects,
+						'count' => Project::countMasterProjects($master->id),
+						'page' => $page,
+				]);
+			}
 		}
+        return $this->goHome();
+	}
+
+	public function actionIndex1($id, $page = null) {
+		$progects = Project::getByMaster($id, $page);
+			return $this->renderAjax('_projects', [
+					'progects' => $progects,
+					'count' => Project::countMasterProjects($id),
+					'page' => $page,
+					'masteId' => $id,
+			]);
         return $this->goHome();
 	}
 }
