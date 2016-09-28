@@ -108,7 +108,11 @@ class User extends ActiveRecord implements IdentityInterface
     
     public static function findIdentityMaster($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE, 'master' => 1]);
+    	$master = static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE, 'master' => 1]);
+    	if ($master != null) {
+    		
+    	}
+        return $master;
     }
 
     /**

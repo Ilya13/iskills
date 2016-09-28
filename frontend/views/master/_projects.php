@@ -20,6 +20,6 @@ if ($count > Project::$PAGE_MIN_SIZE) {
 echo Pagination::widget([
 		'page' => $page,
 		'pageCount' => ceil($count / Project::$PAGE_MIN_SIZE),
-		'href' => ['master/index1', 'id' => $masteId],
+		'href' => ['master/projects', 'id' => $masteId],
 ]);
 ?>

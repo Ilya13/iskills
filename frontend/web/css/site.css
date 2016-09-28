@@ -1290,3 +1290,7 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
+
+.mdl-tabs__panel .section .mdl-typography--title {
+	padding-left: 16px;
+}
