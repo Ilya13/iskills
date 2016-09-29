@@ -7,6 +7,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\User;
 use common\models\Project;
+use common\models\Review;
 
 class MasterController extends Controller
 {
@@ -62,10 +63,13 @@ class MasterController extends Controller
 		$master = User::findIdentityMaster($id);
 		if ($master != null) {
 			$progects = Project::getByMaster($id, $page);
+			$reviews = Review::getByMaster($id, $page);
 			return $this->render('index', [
 					'master' => $master,
 					'progects' => $progects,
-					'count' => Project::countMasterProjects($master->id),
+					'reviews' => $reviews,
+					'progectsCount' => Project::countMasterProjects($master->id),
+					'reviewsCount' => Review::countMasterReviews($id),
 					'page' => $page,
 			]);
 		}
@@ -78,7 +82,18 @@ class MasterController extends Controller
 				'progects' => $progects,
 				'count' => Project::countMasterProjects($id),
 				'page' => $page,
-				'masteId' => $id,
+				'masterId' => $id,
+		]);
+        return $this->goHome();
+	}
+
+	public function actionReviews($id, $page = null) {
+		$reviews = Review::getByMaster($id, $page);
+		return $this->renderAjax('_reviews', [
+				'reviews' => $reviews,
+				'count' => Review::countMasterReviews($id),
+				'page' => $page,
+				'masterId' => $id,
 		]);
         return $this->goHome();
 	}

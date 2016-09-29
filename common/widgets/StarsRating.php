@@ -17,9 +17,10 @@ class StarsRating extends \yii\base\Widget {
 		$stars = min($stars, 5);
 		$this->html = '<div class="star_rating'.($this->isSmall?'_small':'').'">'
 						.'<div class="star_value star_'.$stars.'0"></div>'
-						.'<div class="num_reviews">'
-							.'(<a href="'.$this->reviewsLink.'">'.$this->reviews.'</a>)'
-						.'</div>'
+						.($this->reviews === null || $this->reviews <= 0 ? '' : 
+							'<div class="num_reviews">'
+								.'(<a href="'.$this->reviewsLink.'">'.$this->reviews.'</a>)'
+							.'</div>')
 					.'</div>';
 	}
 

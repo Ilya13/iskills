@@ -16,6 +16,6 @@ use common\widgets\ProjectCard;
 echo Pagination::widget([
 		'page' => $page,
 		'pageCount' => ceil($count / Project::$PAGE_MIN_SIZE),
-		'href' => ['master/projects', 'id' => $masteId],
+		'href' => ['master/projects', 'id' => $masterId],
 ]);
 ?>

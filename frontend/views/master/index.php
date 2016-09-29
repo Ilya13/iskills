@@ -74,29 +74,29 @@ $this->registerJs(
 			.'return result;'
 		.'};'
 		.'$(".section.container .mdl-typography--title.mdl-typography--font-thin").readmore({'
-			.'moreLink: "<div class=\"readmore-link\"><button class=\"mdl-button mdl-js-button mdl-button--icon\"><i class=\"material-icons\">keyboard_arrow_down</i></button>Читать дальше<div>",'
-			.'lessLink: "<div class=\"readmore-link\"><button class=\"mdl-button mdl-js-button mdl-button--icon\"><i class=\"material-icons\">keyboard_arrow_up</i></button>Скрыть<div>"'
+			.'moreLink: "<div class=\"readmore-link mdl-color-text--grey-600\"><button class=\"mdl-button mdl-js-button mdl-button--icon\"><i class=\"material-icons\">keyboard_arrow_down</i></button>Читать дальше<div>",'
+			.'lessLink: "<div class=\"readmore-link mdl-color-text--grey-600\"><button class=\"mdl-button mdl-js-button mdl-button--icon\"><i class=\"material-icons\">keyboard_arrow_up</i></button>Скрыть<div>"'
 		.'});', View::POS_READY);
 ?>
 <div class="master-view">
 	<div class="master-info-section mdl-color--white">
 		<div class="section container">
-			<a class="avatar" style="background-image: url('<?php echo ImageUtil::getUserAvatar($master->id)?>');"></a>
-			<div class="mdl-typography--title"><?php echo $master->lastName.' '.$master->firstName?></div>
-			<div class="mdl-typography--title mdl-typography--font-thin"><span><?php echo $master->shop.' / '?></span><a><?php echo $master->place->name?></a></div>
-			<?php echo StarsRating::widget([
-										'rating' => 4,
-										'reviews' => 10,
-										'isSmall' => true,
-								])?>
+			<a class="avatar" style="background-image: url('<?= ImageUtil::getUserAvatar($master->id)?>');"></a>
+			<div class="mdl-typography--title"><?= $master->lastName.' '.$master->firstName?></div>
+			<div class="mdl-typography--title mdl-typography--font-thin"><span><?= $master->shop.' / '?></span><a><?= $master->place->name?></a></div>
+			<?= StarsRating::widget([
+					'rating' => 4,
+					'reviews' => 10,
+					'isSmall' => true,
+			])?>
 		</div>
 	</div>
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color--white">
 		<div class="tab-bar mdl-color--white">
 			<div class="container">
 				<div class="master">
-					<a class="avatar" style="background-image: url('<?php echo ImageUtil::getUserAvatar($master->id)?>');"></a>
-					<div class="mdl-typography--title mdl-typography--font-thin"><?php echo $master->lastName.' '.$master->firstName?></div>
+					<a class="avatar" style="background-image: url('<?= ImageUtil::getUserAvatar($master->id)?>');"></a>
+					<div class="mdl-typography--title mdl-typography--font-thin"><?= $master->lastName.' '.$master->firstName?></div>
 				</div>
 				<div class="mdl-tabs__tab-bar">
 					<a href="#listings-panel" class="mdl-tabs__tab">Проекты</a>
@@ -109,13 +109,13 @@ $this->registerJs(
 		</div>
 		<div class="mdl-tabs__panel mdl-color--white" id="listings-panel">
 			<div class="section container">
-				<div class="mdl-typography--title">Проекты (<?=$count?>)</div>
+				<div class="mdl-typography--title">Проекты (<?=$progectsCount?>)</div>
 					<?php Pjax::begin(['enablePushState' => false]); ?>
 						<?=$this->render('_projects', [
 								'progects' => $progects,
-								'count' => $count,
+								'count' => $progectsCount,
 	        					'page' => $page,
-								'masteId' => $master->id,
+								'masterId' => $master->id,
 						])?> 
 					<?php Pjax::end(); ?>
 			</div>
@@ -138,11 +138,26 @@ $this->registerJs(
 			</div>
 		</div>
 		<div class="mdl-tabs__panel mdl-color--grey-100" id="reviews-panel">
-			<div class="section-container">
-				<ul>
-					<li>Viserys</li>
-					<li>Daenerys</li>
-				</ul>
+			<div class="section container">
+				<div class="mdl-typography--title">
+					<span>Отзывы</span>
+					<?= StarsRating::widget(['rating' => 4, 'isSmall' => true, 'reviews' => $reviewsCount])?>	
+				</div>
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--9-col">
+						<?php Pjax::begin(['enablePushState' => false]); ?>
+							<?=$this->render('_reviews', [
+									'reviews' => $reviews,
+									'count' => $reviewsCount,
+			        				'page' => $page,
+									'masterId' => $master->id,
+							])?> 
+						<?php Pjax::end(); ?>
+					</div>
+					<div class="mdl-cell mdl-cell--3-col">
+						
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="mdl-tabs__panel mdl-color--white" id="videos-panel">

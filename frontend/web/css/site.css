@@ -1332,3 +1332,33 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 .readmore-link {
 	cursor: pointer;
 }
+
+.review-list-three .review-item {
+	border-bottom: solid 1px #d6d6d6;
+	padding: 25px 0 30px 0;
+}
+
+.review-list-three .review-item:first-child {
+	padding-top: 0;
+}
+
+.review-list-three .review-item:last-child {
+	border-bottom: none;
+}
+
+.review-list-three .mdl-list__item {
+	padding: 0 0 16px 0;
+}
+
+.master-view .section.container .mdl-grid {
+	padding: 0;
+}
+
+.review-list-three .mdl-list__item-avatar {
+	width: 52px;
+	height: 52px;
+	display: block;
+  	background-repeat: no-repeat;
+  	background-position: center;
+  	background-size: cover;
+}
