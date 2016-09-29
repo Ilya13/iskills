@@ -1264,7 +1264,17 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 	font-size: 15px;
 	margin-top: 2px;
 	margin-bottom: 0;
-	white-space: pre;
+	white-space: pre-line;
+	overflow: hidden;
+}
+
+.mdl-tabs__panel .section .mdl-typography--title {
+	/*padding-left: 16px;*/
+	margin-bottom: 20px;
+}
+
+.mdl-tabs__panel .section .mdl-typography--title.mdl-typography--font-thin h6 {
+	margin: 0;
 }
 
 .master-info-section .star_rating_small {
@@ -1276,24 +1286,49 @@ table.md-table.md-row-click tbody.md-body > tr.md-row:not([disabled]):hover {
 	display: block;
 }
 
-.mdl-tabs__tab-bar.fixed {
-    top: 0;
-	left: 0;
-	right: 17px;
-    position: fixed;
-    z-index: 100;
-}
-
-.tab-bar-container {
-	height: 48px;
-}
-
 .section.container {
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
 
-.mdl-tabs__panel .section .mdl-typography--title {
-	padding-left: 16px;
-	margin-bottom: 20px;
+.tab-bar {
+	height: 48px;
+}
+
+.tab-bar.fixed {
+    top: 0;
+	left: 0;
+	right: 17px;
+    position: fixed;
+    z-index: 100;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-bar .master {
+	position: absolute;
+  	opacity: 0;
+  	padding-top: 8px;
+  	cursor: pointer;
+  	width: auto;
+  	white-space: nowrap;
+}
+
+.tab-bar .master .avatar {
+	height: 32px;
+  	width: 32px;
+  	float: left;
+  	margin-right: 8px;
+}
+
+.tab-bar .master .mdl-typography--title.mdl-typography--font-thin {
+	font-size: 15px;
+	line-height: 32px;
+}
+
+.tab-bar.fixed .master {
+	opacity: 1;
+}
+
+.readmore-link {
+	cursor: pointer;
 }
