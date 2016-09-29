@@ -70,6 +70,11 @@ class MasterController extends Controller
 					'reviews' => $reviews,
 					'progectsCount' => Project::countMasterProjects($master->id),
 					'reviewsCount' => Review::countMasterReviews($id),
+					'reviews1Count' => Review::countMasterReviews($id, 1),
+					'reviews2Count' => Review::countMasterReviews($id, 2),
+					'reviews3Count' => Review::countMasterReviews($id, 3),
+					'reviews4Count' => Review::countMasterReviews($id, 4),
+					'reviews5Count' => Review::countMasterReviews($id, 5),
 					'page' => $page,
 			]);
 		}

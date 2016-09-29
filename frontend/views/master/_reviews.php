@@ -28,7 +28,7 @@ $this->registerJs(
 				</div>
 			</div>
 			<span class="mdl-list__item-secondary-content">
-				<span class="mdl-list__item-secondary-action"><?= $review->date?></span>
+				<p class="mdl-list__item-secondary-action"><?= $review->date?></p>
 			</span>
 		</li>
 		<div class="review-text"><?= $review->text?></div>

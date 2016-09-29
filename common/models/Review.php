@@ -33,10 +33,13 @@ class Review extends \yii\db\ActiveRecord {
 		return $reviews;
 	}
 
-    public static function countMasterReviews($masterId) {
+    public static function countMasterReviews($masterId, $value = null) {
     	$query = static::find();
     	if ($masterId != null){
     		$query = $query->where(['masterId' => $masterId]);
+	    	if ($value != null){
+	    		$query = $query->andWhere(['value' => $value]);
+	    	}
     	}
     	return $query->count();
     }

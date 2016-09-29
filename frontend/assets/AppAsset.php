@@ -20,7 +20,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'http://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
         'https://fonts.googleapis.com/icon?family=Material+Icons',
-        'css/material.blue-green.min.css',
+        'https://code.getmdl.io/1.2.1/material.blue-green.min.css',
         'css/site.css',
     ];
     public $js = [

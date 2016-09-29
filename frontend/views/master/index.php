@@ -76,6 +76,21 @@ $this->registerJs(
 		.'$(".section.container .mdl-typography--title.mdl-typography--font-thin").readmore({'
 			.'moreLink: "<div class=\"readmore-link mdl-color-text--grey-600\"><button class=\"mdl-button mdl-js-button mdl-button--icon\"><i class=\"material-icons\">keyboard_arrow_down</i></button>Читать дальше<div>",'
 			.'lessLink: "<div class=\"readmore-link mdl-color-text--grey-600\"><button class=\"mdl-button mdl-js-button mdl-button--icon\"><i class=\"material-icons\">keyboard_arrow_up</i></button>Скрыть<div>"'
+		.'});'
+		.'$("#p1").on("mdl-componentupgraded", function() {'
+			.'this.MaterialProgress.setProgress('.($reviews1Count/$reviewsCount*100).');'
+		.'});'
+		.'$("#p2").on("mdl-componentupgraded", function() {'
+			.'this.MaterialProgress.setProgress('.($reviews2Count/$reviewsCount*100).');'
+		.'});'
+		.'$("#p3").on("mdl-componentupgraded", function() {'
+			.'this.MaterialProgress.setProgress('.($reviews3Count/$reviewsCount*100).');'
+		.'});'
+		.'$("#p4").on("mdl-componentupgraded", function() {'
+			.'this.MaterialProgress.setProgress('.($reviews4Count/$reviewsCount*100).');'
+		.'});'
+		.'$("#p5").on("mdl-componentupgraded", function() {'
+			.'this.MaterialProgress.setProgress('.($reviews5Count/$reviewsCount*100).');'
 		.'});', View::POS_READY);
 ?>
 <div class="master-view">
@@ -123,17 +138,30 @@ $this->registerJs(
 		<div class="mdl-tabs__panel mdl-color--grey-100" id="about-panel">
 			<div class="section container">
 				<div class="mdl-typography--title">О себе</div>
-				<div class="mdl-typography--title mdl-typography--font-thin"><p><?=$master->getInfo()->about ?></p></div>
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--9-col">
+						<div class="mdl-typography--title mdl-typography--font-thin"><p><?=$master->getInfo()->about ?></p></div>
+					</div>
+					<div class="reg-info mdl-cell mdl-cell--3-col">
+						<div class="mdl-typography--title mdl-typography--font-thin"><p>Зарегистрирован с:</p></div>
+						<div class="reg-date mdl-typography--title mdl-typography--font-thin"><i class="material-icons">date_range</i><p><?= date ('d.m.Y', $master->created_at)?></p></div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="mdl-tabs__panel mdl-color--white" id="policies-panel">
 			<div class="section container">
 				<div class="mdl-typography--title">Доставка и Гарантии</div>
-				<div class="mdl-typography--title mdl-typography--font-thin">
-					<?=$master->getInfo()->shipping !== null ?  '<h6>Оплата</h6><p>'.$master->getInfo()->payment.'</p>' : ''?>
-					<?=$master->getInfo()->shipping !== null ?  '<h6>Доставка</h6><p>'.$master->getInfo()->shipping.'</p>' : ''?>
-					<?=$master->getInfo()->policies !== null ?  '<h6>Возврат и обмен</h6><p>'.$master->getInfo()->policies.'</p>' : ''?>
-					<?=$master->getInfo()->shipping !== null ?  '<h6>Дополнительные правила и Справка</h6><p>'.$master->getInfo()->additional.'</p>' : ''?>
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--9-col">
+						<div class="mdl-typography--title mdl-typography--font-thin">
+							<?=$master->getInfo()->shipping !== null ?  '<h6>Оплата</h6><p>'.$master->getInfo()->payment.'</p>' : ''?>
+							<?=$master->getInfo()->shipping !== null ?  '<h6>Доставка</h6><p>'.$master->getInfo()->shipping.'</p>' : ''?>
+							<?=$master->getInfo()->policies !== null ?  '<h6>Возврат и обмен</h6><p>'.$master->getInfo()->policies.'</p>' : ''?>
+							<?=$master->getInfo()->shipping !== null ?  '<h6>Дополнительные правила и Справка</h6><p>'.$master->getInfo()->additional.'</p>' : ''?>
+						</div>
+					</div>
+					<div class="mdl-cell mdl-cell--3-col"></div>
 				</div>
 			</div>
 		</div>
@@ -144,7 +172,7 @@ $this->registerJs(
 					<?= StarsRating::widget(['rating' => 4, 'isSmall' => true, 'reviews' => $reviewsCount])?>	
 				</div>
 				<div class="mdl-grid">
-					<div class="mdl-cell mdl-cell--9-col">
+					<div class="mdl-cell mdl-cell--8-col">
 						<?php Pjax::begin(['enablePushState' => false]); ?>
 							<?=$this->render('_reviews', [
 									'reviews' => $reviews,
@@ -154,8 +182,65 @@ $this->registerJs(
 							])?> 
 						<?php Pjax::end(); ?>
 					</div>
-					<div class="mdl-cell mdl-cell--3-col">
-						
+					<div class="reviews-details mdl-cell mdl-cell--4-col">
+						<div class="mdl-typography--title mdl-typography--font-thin"><p>Всего отзывов <?= $reviewsCount?></p></div>
+						<ul class="rate-list-item mdl-list mdl-typography--font-thin">
+            				<li class="mdl-list__item">
+                				<p class="mdl-list__item-primary-content">
+				                	<span class="r-title">5 звезд</span>
+				                	<span id="p5" class="mdl-progress mdl-js-progress"></span>
+				                </p>
+								<p class="mdl-list__item-secondary-action">
+									<span class="mdl-chip">
+									    <span class="mdl-chip__text"><?= $reviews5Count?></span>
+									</span>
+								</p>
+				            </li>
+				            <li class="mdl-list__item">
+				                <p class="mdl-list__item-primary-content">
+				                	<span class="r-title">4 звезды</span>
+				                	<span id="p4" class="mdl-progress mdl-js-progress"></span>
+				                </p>
+								<p class="mdl-list__item-secondary-action">
+									<span class="mdl-chip">
+									    <span class="mdl-chip__text"><?= $reviews4Count?></span>
+									</span>
+								</p>
+				            </li>
+				            <li class="mdl-list__item">
+				                <p class="mdl-list__item-primary-content">
+				                	<span class="r-title">3 звезды</span>
+				                	<span id="p3" class="mdl-progress mdl-js-progress"></span>
+				                </p>
+								<p class="mdl-list__item-secondary-action">
+									<span class="mdl-chip">
+									    <span class="mdl-chip__text"><?= $reviews3Count?></span>
+									</span>
+								</p>
+				            </li>
+				            <li class="mdl-list__item">
+				                <p class="mdl-list__item-primary-content">
+				                	<span class="r-title">2 звезды</span>
+				                	<span id="p2" class="mdl-progress mdl-js-progress"></span>
+				                </p>
+								<p class="mdl-list__item-secondary-action">
+									<span class="mdl-chip">
+									    <span class="mdl-chip__text"><?= $reviews2Count?></span>
+									</span>
+								</p>
+				            </li>
+				            <li class="mdl-list__item">
+				                <p class="mdl-list__item-primary-content">
+				                	<span class="r-title">1 звезда</span>
+				                	<span id="p1" class="mdl-progress mdl-js-progress"></span>
+				                </p>
+								<p class="mdl-list__item-secondary-action">
+									<span class="mdl-chip">
+									    <span class="mdl-chip__text"><?= $reviews1Count?></span>
+									</span>
+								</p>
+				            </li>
+        				</ul>
 					</div>
 				</div>
 			</div>
